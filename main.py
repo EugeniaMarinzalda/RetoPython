@@ -1,4 +1,4 @@
-#Dia N°1
+#--------Dia N°1--------
 print("Hola Mundo!")
 # Variables - No poden variables cortas como x,y,z para que sea mas entendible. 
 #Descriptivas, claras, mas de 2 caracteres. No existen constantes
@@ -78,7 +78,7 @@ e_mail     = str( input ("Ingresa tu correo electronico: "))
 print("Hola " + full_name + ", en breve recibirás un correo a " + e_mail)
 """
 
-#Día N°2: Estructuras de control
+#--------Día N°2: Estructuras de control--------
 # if, match (swich), foreach, while
 
 #Bool True False
@@ -234,4 +234,180 @@ while registers > 0 and flat == True:
 
 #Si por alguna razón el usuario ingresa mal alguno de estos datos, el programa deberá notificarle y no permitirá continuar hasta que se ingresen datos correctos.
 """ 
+# --------Día 3---------
+# Listas = Estructuras de datos. Almacena distintos tipos de datos. type list. 
+# Mutables: Modifican su indice y longitud
+# Listas en plural, elemento en singular
+"""
 
+my_list = ["dato1" , "dato2"] #-> Estructura
+#    indice    0          1         total = 2
+
+print(len(my_list))
+last_index = len (my_list)-1
+print(my_list[last_index])
+"""
+courses = ["Python", "Django", "Flask", "Ruby", "Ruby on Rails", "Rust" , "C#"]
+#            0          1         2        3            4          5        6
+#           -7         -6        -5       -4           -3         -2       -1
+"""
+last_index = len (courses)-1
+index = int( input("Ingresa el indice del cual quieres conocer su valor: "))
+
+if index <= last_index:
+    print ( courses[index])
+else:
+    print("Lo sentimos, el indice no es valido")    
+
+#Generar sublistas
+new_list = courses [0:5]   # [incluye:excluye]
+print(new_list)
+new_list = courses [3:]   # [incluye:ultimo]
+print(new_list)
+new_list = courses [:5]   # [primero:excluye]
+print(new_list)
+
+#Generar sublistas con saltos
+new_list = courses [::2]   # De dos en dos
+#new_list = courses [star:stop:skips]   # Estructura
+print(new_list)
+new_list = courses [::-1]   # Lista a la inversa
+print(new_list)
+
+#Metodos o acciones que la lista puede realizar
+# append, insert, remove, clear, count, index
+
+#append: añade un elemento al final de la lista.
+courses.append("JavaScript")
+courses.append("TypeScript")
+courses.append("Swift")
+
+#print(courses)
+#print(courses[-1])
+#print( len(courses))
+
+courses.insert(1,"SQLServer")   #inserta desplazando hacia la derecha. ojo
+#print(courses)
+
+#extend : toma una lista y la agrega al final de otra lista. Sirve mejor que iterar y agregar
+new_courses = ["Java9","Docker","Unix"]
+courses.extend(new_courses)
+print(courses)
+
+#remove : elimina
+courses.remove ("Python")
+courses.remove ("Flask")
+courses.remove ("C#")
+print(courses)
+
+#Count : Cuantas veces aparece ese elemento en la lista
+print( courses.count("Python"))
+print( courses.count("Unix"))
+
+#in : Para saber si un elemento se encuentra en la lista (True/False)
+print( "Ruby" in courses)
+print( "Laravel" in courses)
+
+#index : Para conocer el indice de un elemento
+print( courses.index("Ruby"))
+#print( courses.index("Laravel")) #-> si no existe sale error
+#Para solucionarlo
+value = "Laravel"
+if value in courses:
+    print("El indice es: " + str( courses.index(value)))
+else:
+    print("Lo sentimos, el valor no existe dentro del listado") 
+
+value = "Java9"
+if value in courses:
+    print("El indice es: " + str( courses.index(value)))
+else:
+    print("Lo sentimos, el valor no existe dentro del listado")    
+
+#clear: limpia la lista completa
+#courses.clear()
+#print(courses)
+
+#foreach
+for course in courses:
+    print(course)
+
+#para saber el indice se utiliza enumerate. Recibe una lista o str y se puede saber el indice
+for index,course in enumerate(courses):
+    print("El valor para el indice ", index, " " ,course)
+
+for index,character in enumerate("Hola Mundo"): #inlcuye espacio. Los str son coleccion de caracteres NO mutables
+    print(index, character)
+
+# los metodos se pueden utilizar para generar un nuevo str
+message = "Hola Mundo"
+new_messaje = "P" + message[1:]
+print(new_messaje)        
+
+print("Bienvenido al Reto Python avance Día 3")
+flat = True
+number = 0
+id=0
+users = []
+
+registers = int(input("Cuantos registros deseas agregar?: "))
+
+while registers > 0 and flat == True:
+    print("Datos del nuevo registro")
+    
+    first_name = str( input ("Ingresa tu/s nombre/s: ")) 
+
+    for character in first_name:
+        number += 1
+      
+    if number > 50 or number < 5:
+        print("Lo siento. La cantidad de caracteres para el nombre no es válida (min:5, max:50). Inicia nuevamente")
+        flat = False
+    else:
+        number=0
+
+    if flat == True:
+        last_name  = str( input ("Ingresa tu apellido: ")) 
+        
+        for character in last_name:
+            number += 1
+      
+        if number > 50 or number < 5:
+            print("Lo siento. La cantidad de caracteres para el apellido no es válida (min:5, max:50). Inicia nuevamente")
+            flat = False
+        else:
+            number=0
+
+    full_name= first_name + " " + last_name
+
+    if flat == True:
+        telephone  = int( input ("Ingresa tu número de teléfono: ")) 
+              
+        if telephone < 999999999 or telephone > 10000000000 :
+            print("Lo siento. El teléfono debe contener 10 dígitos. Inicia nuevamente")
+            flat = False
+            
+    if flat == True:
+        e_mail = str( input ("Ingresa tu correo electrónico: ")) 
+        for character in e_mail:
+            number += 1
+      
+        if number > 50 or number < 5:
+            print("Lo siento. La cantidad de caracteres para el correo no es válida (min:5, max:50). Inicia nuevamente")
+            flat = False
+        else:
+            number=0
+    
+    if flat == True:
+        id += 1
+        print("Usuario registrado satisfactoriamente bajo el identificador: " , id)
+        users.append(id)        
+    registers -= 1
+
+if len(users)>0:
+    print("Los identificadores de los usuarios registrados son: ")
+    for user in users:
+        print(user)    
+else:
+    print("No hay usuarios registrados")        
+"""    
