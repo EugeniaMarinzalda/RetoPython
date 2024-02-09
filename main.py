@@ -411,3 +411,393 @@ if len(users)>0:
 else:
     print("No hay usuarios registrados")        
 """    
+#--------Día N°4: Tuplas y Diccionarios--------
+#Estructuras de datos: Permiten almacenar distintos tipos de datos. Duplas dentro de duplas o listas dentro de duplas
+#Todos los elementos pueden accederse mediante indices
+#Las listas son mutables (cambiar tamaño y modificar datos) y las duplas inmutables (misma longitus y sin modificacion)
+
+settings = ("localhost", 3306, "root", "password", "database") #-> parentesis type tuple
+# Indices         0       1       3        4            5           
+"""
+print( len(settings)) #tamaño
+print( settings[2]) #Acceder a un valor por indice
+sub_setting = settings[::-1] #generar otra dupla a partir de la primera
+print( sub_setting)
+#Son mas seguras para almacenar valores que no pretendemos cambiar, la lectura es mas rapida y facil acceder a un indice
+#Son colecciones, se pueden iterar
+for value in settings:
+    print(value)
+#Si se quiere desagregar, se deben generar una variable por elemento para utilizarlas
+host = settings[0]
+port = settings[1]
+username = settings[2]
+password = settings[3]
+name = settings[4]
+
+#desempaquetado de duplas
+host,port, username,password, name = settings
+print(host,port, username,password, name)
+
+host,port, _,_, _ = settings #Los valores que tienen _ no se asignan a ninguna variable
+print(host,port)
+host,port, *_ = settings # *_ cubre hasta el final
+print(host,port)
+host, *_, password, name = settings #Los valores que tienen *_ no se contemplan y respeta la ubicacion de los finales
+print(host,password, name )
+
+#duplas dentro de duplas. No olvidar "," entre duplas. Error
+tuples = (
+    (1,2,3),
+    (4,5,6),
+    (7,8,9)
+)
+print(tuples)
+for _tuple in tuples:
+    print(_tuple)
+
+for _tuple in tuples: # para descomponen los valores de cada tupla. Numero individuales
+    for number in _tuple:    
+        print(number)
+
+for number1, number2, number3 in tuples: #Desempauqetado de duplas sabiendo la cantidad de cada elemento en dupla
+    print(number1, number2, number3)        
+"""
+#Diccionarios : Almacen distintos tipos de datos (primitivos, tuplas y otros diccionarios)
+#NO trabajan con indice, sino con llave y valor (mapas, json)
+#type dict
+# Llave != String - Llave = Objetos inmutables - solo lectura
+"""
+user = {
+    #llave : valor,
+    "name" : "cody",
+    "age" : "10",
+    "email" : "info@codigofacilito.com",
+    "active" : True,
+    10 : 3.4,   
+    True : "verdadero", # True se almacena por 1 y False por 0
+    (1, 2, 3) : "Tupla"
+}
+
+print(user)
+
+print(user["name"]) # Se accede al valor a traves de la llave
+
+#Si no existe la lleve, obtenemos error. Para solucionar
+if "username" in user:
+    print( user ["username"])
+if "name" in user:
+    print( user ["name"])
+
+#Metodo get. Obtiene el valor de la llave si existe. Si no existe es none (null)
+value = user.get("username")   
+print(value) 
+value = user.get("username", "La llave no existe")   
+print(value) 
+value = user.get("name")   
+print(value) 
+
+#Metodo keys. Para conocer todas las llaves
+print(
+    user.keys()  #dict_keys
+) 
+
+print(
+    list( user.keys() ) #Pasar a lista o tupla para trabajar 
+)
+#Metodo values. Para conocer todos los valores
+print(
+    user.values() #dict_values
+)
+print(
+    tuple( user.values() ) #Pasar a lista o tupla para trabajar 
+)
+#Metodo items. Devuelve un objeto dict_item, donde se encuentra en duplas de 2 valores la llave y el valor
+print(
+    user.items() #dict_items
+)
+print(
+    tuple( user.items() ) #Pasar a lista o tupla para trabajar 
+)
+# Se puede desagregar, desempaquetar
+for key, value in tuple (user.items()):
+    print(key, value)
+"""
+print("Bienvenido al Reto Python avance Día 4")
+"""
+Consignas:
+
+Día 1: 
+
+    Para este primer reto de la semana, tu objetivo será poder crear un programa en Python el cual permita registrar a un usuario en el sistema.
+
+    Para ello el programa deberá pedir a nuestro usuario final ingrese su siguiente información.
+
+    Nombre(s)
+    Apellidos
+    Número de teléfono
+    Correo electrónico.
+    Una vez el usuario haya ingresado todos los datos vía teclado, el programa le dará la bienvenida al usuario con el siguiente mensaje:
+
+    Hola + seguido del nombre completo del usuario +, en breve recibirás un correo a + seguido del correo electrónico .
+
+Día 2: 
+
+    Para este segundo reto de la semana tu objetivo será incrementar el funcionamiento del programa del día de ayer. Si recordamos, ayer construimos un programa en Python capaz de registrar un nuevo usuario en el sistema. Pues bien, continuando con el proyecto, el reto de hoy será que podremos registrar un N cantidad de nuevos usuarios.
+
+    Para esto el programa deberá preguntar cuando nuevos usuarios se pretenden registrar.
+
+    Si el por ejemplo coloco 5, bueno, serán 5 nuevos usuarios los que se deben capturar, usuarios con sus correspondientes valores: Nombre, apellidos, número de teléfono y correo electrónico.
+
+    Además de todo esto, añadiremos una capa extra de seguridad, implementando un par de validaciones sobre los valores que se pueden ingresar.
+
+    Validaremos que, tanto nombre, apellidos como correo electrónico tengan una longitud mínimo de 5 caracteres y un longitud máxima de 50.
+
+    Así mismo el número de teléfono será a 10 dígitos.
+
+    Si por alguna razón el usuario ingresa mal alguno de estos datos, el programa deberá notificarle y no permitirá continuar hasta que se ingresen datos correctos.
+
+Día 3: 
+
+    Vaya, ya llegamos al reto número 3 de la semana, y para este tercer reto lo que haremos será añadir 2 nuevas funcionalidades a nuestro programa de registro de usuarios.
+
+    Estas funcionalidades son las siguientes
+
+    1.- Siempre que se registre un nuevo usuario de forma exitosa generaremos un identificador único para este registro/usuario. Te recomiendo sea un ID numérico auto incremental, que comience en 1 hasta N. Sin embargo siéntete libre elegir el formato o tipo que tú desees.
+    2.- Todos estos nuevos identificadores deberán almacenarse en un listado que será impreso en consola cuando todos los registros se hayan creado. Esto de tal forma que el usuario pueda conocer y tenga certeza que las operaciones, en efecto, se realizaron de forma exitosa.
+
+    Con estas 2 nuevas funcionalidades es probable te intuyas como iremos finalizando nuestro programa para el quinto día.
+
+Día 4: 
+
+    Ya nos encontramos en la recta final de nuestra semana, y lo que haremos ahora, cómo ya es costumbre, será añadir más funcionalidades a nuestro programa.
+
+    Puntualmente 4 nuevas funcionalidades. Aquí van.
+
+    1.- Ahora todos los valores que representan a un usuario: Nombre, apellidos, número de teléfono y correo electrónico deberán almacenarse en un diccionario.
+
+    2.- Se añadirá la opción de poder listar el ID de todos los usuarios registrados hasta el momento.
+
+    3.- Se añadirá la opción de poder ver la información de un usuario con respecto a un ID. Es decir, el usuario podrá ingresar un ID y a partir de este conocer la información registrada.
+
+    4.- Se añadirá la opción de poder editar la información de un usuario con respecto a un ID. Es decir, el usuario podrá ingresar un ID y a partir de este el programa pedirá nuevamente los valores de un registro para actualizarlos.
+
+    Estas 3 nuevas opciones deberán ser presentadas al usuario al comienzo del programa, esto con la finalidad que sea el usuario quien defina que quiere hacer justo ahora: añadir nuevos usuario, consultarlos o editarlos.
+
+    De igual forma el programa tendrán una quinta opción que le permita la usuario finalizar el programa cuando él lo desee.
+
+    Un Tip. Para estas nuevas opciones puedes presentarle a tu usuario un pequeño menú del cual pueda elegir. Por ejemplo opción A.-) registrar nuevos usuarios, opción B.-) listar usuarios, Opción C.-) Editar usuarios y así sucesivamente.
+
+Día 5: 
+
+    pass
+"""
+users = []
+exit = False 
+id=0  
+
+"""
+#Parametrizo 2 Usuarios para testear funcionamiento
+user = {
+                        "id" : 1,
+                        "first_name" : "Holachau",
+                        "last_name" : "apellido",
+                        "telephone" : "1234567891",
+                        "e_mail" : "correoelectronico"
+                    }
+users.append(user)
+user = {
+                        "id" : 2,
+                        "first_name" : "comoestas",
+                        "last_name" : "queeseso",
+                        "telephone" : "1111122222",
+                        "e_mail" : "electronico"
+                    }
+users.append(user)
+id=2
+"""
+  
+while exit == False:
+
+    option = int ( input( "\nMenú "+
+                          "\n   1 - Listar el ID de los usuarios registrados"+ 
+                          "\n   2 - Agregar usuario/s"+ 
+                          "\n   3 - Buscar usuario por ID"+ 
+                          "\n   4 - Modificar usuario por ID"+ 
+                          "\n   5 - Salir"+
+                          "\n" ))
+    
+    # Controlo que el número ingresado este dentro del menú
+    if option>5 or option<1:
+        print("Opción incorrecta. Intente nuevamente")
+
+    #Según la opción elegida
+    match(option):
+
+        case 1:
+            #Listo únicamente los Id
+            print("Los Id de los usuarios son: ")
+            for user in users:
+                print ("ID: ", user ["id"])
+
+        case 2:
+            flag = True #Para que salga del while si hay algún error en las validaciones
+            number = 0
+
+            registers = int(input("Cuantos registros deseas agregar?: "))
+
+            while registers > 0 and flag == True:
+                print( "Datos del nuevo registro")
+                
+                first_name = str( input ("Ingresa tu/s nombre/s: ")) 
+
+                #Validación de nombres
+                for character in first_name:
+                    number += 1
+                
+                if number > 50 or number < 5:
+                    print("Lo siento. La cantidad de caracteres para el nombre no es válida (min:5, max:50). Inicia nuevamente")
+                    flag = False
+                else:
+                    number=0
+
+                if flag == True:
+                    last_name  = str( input ("Ingresa tu apellido: ")) 
+                    
+                    #Validación de apellido
+                    for character in last_name:
+                        number += 1
+                
+                    if number > 50 or number < 5:
+                        print("Lo siento. La cantidad de caracteres para el apellido no es válida (min:5, max:50). Inicia nuevamente")
+                        flag = False
+                    else:
+                        number=0
+
+                if flag == True:
+                    telephone  = int( input ("Ingresa tu número de teléfono: ")) 
+
+                    #Validación de teléfono      
+                    if telephone < 999999999 or telephone > 10000000000 :
+                        print("Lo siento. El teléfono debe contener 10 dígitos. Inicia nuevamente")
+                        flag = False
+                        
+                if flag == True:
+                    e_mail = str( input ("Ingresa tu correo electrónico: ")) 
+                    
+                    #Validación de correo electrónico
+                    for character in e_mail:
+                        number += 1
+                
+                    if number > 50 or number < 5:
+                        print("Lo siento. La cantidad de caracteres para el correo no es válida (min:5, max:50). Inicia nuevamente")
+                        flag = False
+                    else:
+                        number=0
+                
+                #Si todos los pasos son correctos. Genero id, agrego las variables al diccionario y agrego el diccionario a la lista.
+                if flag == True:
+                    id += 1
+                    print("Usuario registrado satisfactoriamente bajo el identificador: " , id)
+                    user = {
+                        "id" : id,
+                        "first_name" : first_name,
+                        "last_name" : last_name,
+                        "telephone" : telephone,
+                        "e_mail" : e_mail
+                    } 
+                    users.append(user)     
+                registers -= 1 #Disminuyo los registros para que salga del bucle cuando cargue los usuarios
+
+        case 3:
+            flag = False
+            search_id = int ( input ("Indique el ID del usuario que desea buscar: "))
+            for user in users:
+                if user ["id"] == search_id:
+                    flag = True
+                    print( "El usuario es: ")
+                    for key, value in tuple (user.items()):
+                        print(key, value)                
+            if flag == False:
+                print( "Id no encontrado. Intente nuevamente")
+
+        case 4:
+            banner = False #Para controlar que el usuario se haya encontrado
+            number = 0
+            id_change = int ( input ("Indique el ID del usuario que desea modificar: "))
+            for user in users:
+                if user ["id"] == id_change:
+                    banner = True
+                    flag = True
+                    print( "El usuario a modificar es: ")
+                    for key, value in tuple (user.items()):
+                        print(key, value) 
+
+                    while flag == True:
+
+                        first_name = str( input ("Ingresa tu/s nombre/s: ")) 
+
+                        #Validación de nombres
+                        for character in first_name:
+                            number += 1
+                        
+                        if number > 50 or number < 5:
+                            print("Lo siento. La cantidad de caracteres para el nombre no es válida (min:5, max:50). Inicia nuevamente")
+                            flag = False
+                        else:
+                            number=0
+
+                        if flag == True:
+                            last_name  = str( input ("Ingresa tu apellido: ")) 
+                            
+                            #Validación de apellido
+                            for character in last_name:
+                                number += 1
+                        
+                            if number > 50 or number < 5:
+                                print("Lo siento. La cantidad de caracteres para el apellido no es válida (min:5, max:50). Inicia nuevamente")
+                                flag = False
+                            else:
+                                number=0
+
+                        if flag == True:
+                            telephone  = int( input ("Ingresa tu número de teléfono: ")) 
+
+                            #Validación de teléfono      
+                            if telephone < 999999999 or telephone > 10000000000 :
+                                print("Lo siento. El teléfono debe contener 10 dígitos. Inicia nuevamente")
+                                flag = False
+                                
+                        if flag == True:
+                            e_mail = str( input ("Ingresa tu correo electrónico: ")) 
+                            
+                            #Validación de correo electrónico
+                            for character in e_mail:
+                                number += 1
+                        
+                            if number > 50 or number < 5:
+                                print("Lo siento. La cantidad de caracteres para el correo no es válida (min:5, max:50). Inicia nuevamente")
+                                flag = False
+                            else:
+                                number=0
+                        
+                        #Si todos los pasos son correctos. Agrego las variables a un nuevo diccionario.
+                        if flag == True:
+                
+                            new_user = {
+                                "id" : id_change,
+                                "first_name" : first_name,
+                                "last_name" : last_name,
+                                "telephone" : telephone,
+                                "e_mail" : e_mail
+                            } 
+                            #Lo inserto en la posición del usuario a modificar, este se desplaza en una posición.
+                            users.insert((id_change-1),new_user)
+                            #Elimino el usuario anterior que se desplazo
+                            users.remove(user) 
+                            flag= False
+
+            if banner == False:
+                print( "Id no encontrado. Intente nuevamente")
+
+        case 5:
+            exit = True
