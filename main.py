@@ -522,50 +522,10 @@ print(
 for key, value in tuple (user.items()):
     print(key, value)
 """
-print("Bienvenido al Reto Python avance Día 4")
 """
-Consignas:
+print("Bienvenido al Reto Python avance Día 4")
 
-Día 1: 
-
-    Para este primer reto de la semana, tu objetivo será poder crear un programa en Python el cual permita registrar a un usuario en el sistema.
-
-    Para ello el programa deberá pedir a nuestro usuario final ingrese su siguiente información.
-
-    Nombre(s)
-    Apellidos
-    Número de teléfono
-    Correo electrónico.
-    Una vez el usuario haya ingresado todos los datos vía teclado, el programa le dará la bienvenida al usuario con el siguiente mensaje:
-
-    Hola + seguido del nombre completo del usuario +, en breve recibirás un correo a + seguido del correo electrónico .
-
-Día 2: 
-
-    Para este segundo reto de la semana tu objetivo será incrementar el funcionamiento del programa del día de ayer. Si recordamos, ayer construimos un programa en Python capaz de registrar un nuevo usuario en el sistema. Pues bien, continuando con el proyecto, el reto de hoy será que podremos registrar un N cantidad de nuevos usuarios.
-
-    Para esto el programa deberá preguntar cuando nuevos usuarios se pretenden registrar.
-
-    Si el por ejemplo coloco 5, bueno, serán 5 nuevos usuarios los que se deben capturar, usuarios con sus correspondientes valores: Nombre, apellidos, número de teléfono y correo electrónico.
-
-    Además de todo esto, añadiremos una capa extra de seguridad, implementando un par de validaciones sobre los valores que se pueden ingresar.
-
-    Validaremos que, tanto nombre, apellidos como correo electrónico tengan una longitud mínimo de 5 caracteres y un longitud máxima de 50.
-
-    Así mismo el número de teléfono será a 10 dígitos.
-
-    Si por alguna razón el usuario ingresa mal alguno de estos datos, el programa deberá notificarle y no permitirá continuar hasta que se ingresen datos correctos.
-
-Día 3: 
-
-    Vaya, ya llegamos al reto número 3 de la semana, y para este tercer reto lo que haremos será añadir 2 nuevas funcionalidades a nuestro programa de registro de usuarios.
-
-    Estas funcionalidades son las siguientes
-
-    1.- Siempre que se registre un nuevo usuario de forma exitosa generaremos un identificador único para este registro/usuario. Te recomiendo sea un ID numérico auto incremental, que comience en 1 hasta N. Sin embargo siéntete libre elegir el formato o tipo que tú desees.
-    2.- Todos estos nuevos identificadores deberán almacenarse en un listado que será impreso en consola cuando todos los registros se hayan creado. Esto de tal forma que el usuario pueda conocer y tenga certeza que las operaciones, en efecto, se realizaron de forma exitosa.
-
-    Con estas 2 nuevas funcionalidades es probable te intuyas como iremos finalizando nuestro programa para el quinto día.
+Consigna:
 
 Día 4: 
 
@@ -587,14 +547,12 @@ Día 4:
 
     Un Tip. Para estas nuevas opciones puedes presentarle a tu usuario un pequeño menú del cual pueda elegir. Por ejemplo opción A.-) registrar nuevos usuarios, opción B.-) listar usuarios, Opción C.-) Editar usuarios y así sucesivamente.
 
-Día 5: 
-
-    pass
+"""
 """
 users = []
 exit = False 
 id=0  
-
+"""
 """
 #Parametrizo 2 Usuarios para testear funcionamiento
 user = {
@@ -615,7 +573,7 @@ user = {
 users.append(user)
 id=2
 """
-  
+""" 
 while exit == False:
 
     option = int ( input( "\nMenú "+
@@ -801,3 +759,331 @@ while exit == False:
 
         case 5:
             exit = True
+"""
+#--------Día N°5: Funciones--------
+#Bloque de codigo el cual podemos llamar una n cant de veces. Se lo abstrae de manera que se pueda reutilizar
+#Evitar codigo duplicado. Las funciones deben realizar 1 sola tarea. Codigo de mas de 10 lineas, revisar
+"""
+def print_number(): #def = definicion
+    for number in range (1,11):
+        print(number)
+
+print_number() # Llamar / ejecutar / invocar la funcion
+
+def suma():
+    result = 10 + 20 #constantes. no es flexible
+    print (result)
+suma()
+
+
+#Con datos de entrada para una funcion = Argumentos -> Parametros que se definen en la funcion. Es mas flexible
+def resta(number1, number2):
+    result = number1 - number2   # una tarea
+    print (result)               # otra tarea -> se deberian dividir
+resta(20,10) 
+resta(11,22) 
+
+
+#Para dividir el bloque y retorne la variable
+def multiplicacion (number1, number2):
+    #result = number1 * number2   
+    #return result  
+    return number1 * number2     #una misma linea de codigo    
+
+print( multiplicacion( 20, 10)) 
+
+
+#Puede retornar varias variables
+def division (number1, number2):
+    return number1 / number2, 10, 10     # retorna una tupla          
+
+
+result, number1, number2 = division( 20, 10)
+print (result, number1, number2)
+
+#Programa para saber si un alumno aprobo >=7
+scores = []
+
+for option in range(0,5):
+    score = int( input( "Ingresa una calificación: "))
+    scores.append( score)
+
+
+#Sin funciones
+suma=0
+for score in scores:
+    suma += score
+
+average = suma / len( scores)
+print(average)    
+
+
+#Con funciones de python
+average = sum( scores) / len( scores)
+print(average) 
+
+match(average):
+    case 10:
+        print( "Muchas Felicidades! Aprobaste la materia.")
+    case 8 | 9:
+        print( "Aprobaste la materia.")
+    case 7:
+        print( "Aprobaste la materia, pero necesitas práctiar más")
+    case _:
+        print( "Lo sentimos, no aprobaste la materia")
+
+#Separando por funciones   
+def set_scores():
+    scores = []
+    for option in range(0,5):
+        score = int( input( "Ingresa una calificación: "))
+        scores.append( score)           
+    return scores   
+
+
+def average(numbers):
+    return int (sum( numbers) / len( numbers))
+
+
+def show_message(average):
+    match(average):
+        case 10:
+            print( "Muchas Felicidades! Aprobaste la materia.")
+        case 8 | 9:
+            print( "Aprobaste la materia.")
+        case 7:
+            print( "Aprobaste la materia, pero necesitas práctiar más")
+        case _:
+            print( "Lo sentimos, no aprobaste la materia")
+    print(average)
+
+
+#scores = set_scores()
+#avg = average( scores)
+#show_message( avg)
+message = show_message( average( set_scores() ) )
+"""
+
+print("Bienvenido al Reto Python avance Día 5")
+ 
+
+#Funciones
+
+#Parametrizo 2 Usuarios para testear funcionamiento
+def start(id, users):
+    user = {
+                            "id" : 1,
+                            "first_name" : "Código",
+                            "last_name" : "Facilito",
+                            "telephone" : "1234567891",
+                            "e_mail" : "info@codigofacilito.com"
+                        }
+    users.append(user)
+    user = {
+                            "id" : 2,
+                            "first_name" : "Eugenia",
+                            "last_name" : "Marinzalda",
+                            "telephone" : "1111122222",
+                            "e_mail" : "euge@electronico.com"
+                        }
+    users.append(user)
+    id= len(users)
+    return id, users
+
+
+#Creo 1 usuario sin id
+def new_user ():
+    flag = True #Para que salga del while si hay algún error en las validaciones 
+       
+    print( "Datos del nuevo registro")
+    first_name = str( input ("Ingresa tu/s nombre/s: ")) 
+    if character_validation(first_name) == False:
+        flag = False
+
+    if flag == True:
+        last_name  = str( input ("Ingresa tu apellido: ")) 
+        if character_validation(last_name) == False:
+            flag = False
+       
+    if flag == True:
+        telephone  = int( input ("Ingresa tu número de teléfono: ")) 
+        if telephone_validation(telephone) == False:
+            flag = False
+            
+    if flag == True:
+        e_mail = str( input ("Ingresa tu correo electrónico: ")) 
+        if character_validation(e_mail) == False:
+            flag = False
+    
+    #Si todos los pasos son correctos. 
+    if flag == True:
+        return ( first_name, last_name, telephone, e_mail )
+    else:
+        return False
+
+
+#Genero id, agrego las variables al diccionario y agrego el diccionario a la lista.
+def add_user (id_code, first_name, last_name, telephone, e_mail , users):
+    id = id_code + 1 
+    print("Usuario registrado satisfactoriamente bajo el identificador: " , id)
+    user = {
+        "id" : id,
+        "first_name" : first_name,
+        "last_name" : last_name,
+        "telephone" : telephone,
+        "e_mail" : e_mail
+    } 
+    users.append(user)
+    return id, users
+
+
+#Busca y muestra usuario
+def show_user (search_id, users):
+    flag = False
+    for user in users:
+        if user ["id"] == search_id:
+            flag = True
+            print( "El usuario es: ")
+            for key, value in tuple (user.items()):
+                print(key, value) 
+            return True                   
+    if flag == False:
+        print( "Id no encontrado. Intente nuevamente") 
+        return False
+
+
+#Edita el usuario
+def edit_user (id_change, users):
+    banner = False #Para controlar que el usuario se haya encontrado
+    for user in users:
+        if user ["id"] == id_change:
+            banner = True
+            if show_user(id_change, users) == True:
+                first_name, last_name, telephone, e_mail = new_user()
+                replace_user(user, id_change,first_name, last_name, telephone, e_mail, users )
+
+    if banner == False:
+        print( "Id no encontrado. Intente nuevamente")
+    
+    
+#Modificar el usuario
+def replace_user (user, id_change, first_name, last_name, telephone, e_mail , users):
+    new_user = {
+                "id" : id_change,
+                "first_name" : first_name,
+                "last_name" : last_name,
+                "telephone" : telephone,
+                "e_mail" : e_mail
+            } 
+    #Lo inserto en la posición del usuario a modificar, este se desplaza en una posición.
+    users.insert((id_change-1),new_user)
+    #Elimino el usuario anterior que se desplazo
+    users.remove(user)     
+    
+    
+#Elimina el usuario
+def delete_user (id_delete , users):
+    flag = False
+    for user in users:
+        if user ["id"] == id_delete:
+            flag = True
+            print( "El usuario a eliminar es: ")
+            for key, value in tuple (user.items()):
+                print(key, value) 
+            users.remove(user)
+            return users
+                              
+    if flag == False:
+        print( "Id no encontrado. Intente nuevamente") 
+        return False
+    
+    
+#Listar usuarios
+def list_user(users): 
+    """
+    #Listo únicamente los Id
+    print("Los Id de los usuarios son: ")
+    for user in users:
+        print ("ID: ", user ["id"]) 
+    """
+    #Listo todos los usuarios
+    print("Los usuarios son: ")
+    for user in users:
+        print (user)
+        
+        
+#Validación de caracteres para nombre, apellido y correo electrónico
+def character_validation(name): 
+    number = 0
+    for character in name:
+        number += 1
+    
+    if number > 50 or number < 5:
+        print("Lo siento. La cantidad de caracteres para el nombre no es válida (min:5, max:50). Inicia nuevamente")
+        return False
+    else:
+        return True
+
+
+#Validación de teléfono 
+def telephone_validation(telephone):
+    if len( str( telephone) ) == 10 :
+        return True
+    else:
+        print("Lo siento. El teléfono debe contener 10 dígitos. Inicia nuevamente")
+        return False 
+    
+    
+#Menu
+exit = False 
+users = [] 
+id=0
+id, users = start(id, users)
+while exit == False:
+
+    option = int ( input( "\nMenú "+
+                          "\n   1 - Agregar nuevo/s usuario/s"+ 
+                          "\n   2 - Mostrar usuario por ID"+ 
+                          "\n   3 - Modificar usuario por ID"+ 
+                          "\n   4 - Eliminar usuario por ID"+ 
+                          "\n   5 - Listar todos los usuarios registrados"+ 
+                          "\n   6 - Salir"+
+                          "\n" ))
+    
+    # Controlo que el número ingresado este dentro del menú
+    if option>6 or option<1:
+        print("Opción incorrecta. Intente nuevamente")
+
+    #Según la opción elegida
+    match(option):
+
+        case 1:
+            registers = int( input( "Cuantos registros deseas agregar?: "))
+            
+            while registers > 0  : 
+                user = new_user()
+                if user == False:
+                    print( "El usuario no ha sido registrado")
+                else:
+                    first_name, last_name, telephone, e_mail = user
+                    id , users =add_user(id, first_name, last_name, telephone, e_mail, users)  
+                    registers -= 1 #Disminuyo los registros para que salga del bucle cuando cargue los usuarios
+
+        case 2: 
+            search_id = int ( input ("Indique el ID del usuario que desea mostrar: "))
+            show_user (search_id, users)
+
+        case 3: 
+            id_change = int ( input ("Indique el ID del usuario que desea modificar: "))
+            edit_user(id_change, users)
+        
+        case 4: 
+            id_delete = int ( input ("Indique el ID del usuario que desea eliminar: "))
+            delete_user(id_delete, users)
+        
+        case 5:
+            list_user(users) 
+            
+        case 6:
+            exit = True
+
