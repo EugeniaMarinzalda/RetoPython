@@ -5,7 +5,7 @@ print("Hola Mundo!")
 
 # Tipo de datos - Las define python, es más rápido para codear. Pueden haber errores al cambiar de tipo
 
-#nombre_de_la_variable = valor   snap case
+#nombre_de_la_variable = valor   snake case
 first_name = "Eugenia" #String "" or ''
 last_name = "Marinzalda"
 
@@ -893,123 +893,146 @@ def start(id, users):
 
 #Creo 1 usuario sin id
 def new_user ():
-    flag = True #Para que salga del while si hay algún error en las validaciones 
-       
-    print( "Datos del nuevo registro")
-    first_name = str( input ("Ingresa tu/s nombre/s: ")) 
-    if character_validation(first_name) == False:
-        flag = False
-
-    if flag == True:
-        last_name  = str( input ("Ingresa tu apellido: ")) 
-        if character_validation(last_name) == False:
-            flag = False
-       
-    if flag == True:
-        telephone  = int( input ("Ingresa tu número de teléfono: ")) 
-        if telephone_validation(telephone) == False:
-            flag = False
-            
-    if flag == True:
-        e_mail = str( input ("Ingresa tu correo electrónico: ")) 
-        if character_validation(e_mail) == False:
-            flag = False
-    
-    #Si todos los pasos son correctos. 
-    if flag == True:
-        return ( first_name, last_name, telephone, e_mail )
-    else:
-        return False
-
+    try:
+        flag = True #Para que salga del while si hay algún error en las validaciones 
+        
+        print( "Datos del nuevo registro")
+        
+        try:
+            first_name = str( input ("Ingresa tu/s nombre/s: ")) 
+            if character_validation(first_name) == False:
+                flag = False
+        except ValueError:
+            print( "El nombre debe ser una cadena de caracteres. Intenta nuevamente")
+        
+        
+        if flag == True:
+            try:
+                last_name  = str( input ("Ingresa tu apellido: ")) 
+                if character_validation(last_name) == False:
+                    flag = False
+            except ValueError:
+                print( "El apellido debe ser una cadena de caracteres. Intenta nuevamente")
+        
+        
+        if flag == True:
+            try:
+                telephone  = int( input ("Ingresa tu número de teléfono: ")) 
+                if telephone_validation(telephone) == False:
+                    flag = False
+            except ValueError:
+                print( "El telefono debe ser un número entero. Intenta nuevamente")    
+                
+        if flag == True:
+            try:
+                e_mail = str( input ("Ingresa tu correo electrónico: ")) 
+                if character_validation(e_mail) == False:
+                    flag = False
+            except ValueError:
+                print( "El apellido debe ser una cadena de caracteres. Intenta nuevamente")
+                
+        #Si todos los pasos son correctos. 
+        if flag == True:
+            return ( first_name, last_name, telephone, e_mail )
+        else:
+            return False
+    except Exception as e:
+        print("Error al crear el usuario: ", e , ". Intente nuevamente")
 
 #Genero id, agrego las variables al diccionario y agrego el diccionario a la lista.
 def add_user (id_code, first_name, last_name, telephone, e_mail , users):
-    id = id_code + 1 
-    print("Usuario registrado satisfactoriamente bajo el identificador: " , id)
-    user = {
-        "id" : id,
-        "first_name" : first_name,
-        "last_name" : last_name,
-        "telephone" : telephone,
-        "e_mail" : e_mail
-    } 
-    users.append(user)
-    return id, users
-
+    try:
+        id = id_code + 1 
+        print("Usuario registrado satisfactoriamente bajo el identificador: " , id)
+        user = {
+            "id" : id,
+            "first_name" : first_name,
+            "last_name" : last_name,
+            "telephone" : telephone,
+            "e_mail" : e_mail
+        } 
+        users.append(user)
+        return id, users
+    except Exception as e:
+        print("Error al agregar el usuario: ", e , ". Intente nuevamente")
 
 #Busca y muestra usuario
 def show_user (search_id, users):
-    flag = False
-    for user in users:
-        if user ["id"] == search_id:
-            flag = True
-            print( "El usuario es: ")
-            for key, value in tuple (user.items()):
-                print(key, value) 
-            return True                   
-    if flag == False:
-        print( "Id no encontrado. Intente nuevamente") 
-        return False
+    try:
+        flag = False
+        for user in users:
+            if user ["id"] == search_id:
+                flag = True
+                print( "El usuario es: ")
+                for key, value in tuple (user.items()):
+                    print(key, value) 
+                return True                   
+        if flag == False:
+            print( "Id no encontrado. Intente nuevamente") 
+            return False
+    except Exception as e:
+        print("Error al mostrar al usuario: ", e , ". Intente nuevamente")
 
-
-#Edita el usuario
+#Editar el usuario
 def edit_user (id_change, users):
-    banner = False #Para controlar que el usuario se haya encontrado
-    for user in users:
-        if user ["id"] == id_change:
-            banner = True
-            if show_user(id_change, users) == True:
-                first_name, last_name, telephone, e_mail = new_user()
-                replace_user(user, id_change,first_name, last_name, telephone, e_mail, users )
+    try:
+        banner = False #Para controlar que el usuario se haya encontrado
+        for user in users:
+            if user ["id"] == id_change:
+                banner = True
+                if show_user(id_change, users) == True:
+                    first_name, last_name, telephone, e_mail = new_user()
+                    replace_user(user, id_change,first_name, last_name, telephone, e_mail, users )
 
-    if banner == False:
-        print( "Id no encontrado. Intente nuevamente")
-    
+        if banner == False:
+            print( "Id no encontrado. Intente nuevamente")
+    except Exception as e:
+        print("Error al editar el usuario: ", e , ". Intente nuevamente")
     
 #Modificar el usuario
 def replace_user (user, id_change, first_name, last_name, telephone, e_mail , users):
-    new_user = {
-                "id" : id_change,
-                "first_name" : first_name,
-                "last_name" : last_name,
-                "telephone" : telephone,
-                "e_mail" : e_mail
-            } 
-    #Lo inserto en la posición del usuario a modificar, este se desplaza en una posición.
-    users.insert((id_change-1),new_user)
-    #Elimino el usuario anterior que se desplazo
-    users.remove(user)     
-    
+    try:
+        new_user = {
+                    "id" : id_change,
+                    "first_name" : first_name,
+                    "last_name" : last_name,
+                    "telephone" : telephone,
+                    "e_mail" : e_mail
+                } 
+        #Lo inserto en la posición del usuario a modificar, este se desplaza en una posición.
+        users.insert((id_change-1),new_user)
+        #Elimino el usuario anterior que se desplazo
+        users.remove(user)     
+    except Exception as e:
+        print("Error al modificar el usuario: ", e , ". Intente nuevamente")
     
 #Elimina el usuario
 def delete_user (id_delete , users):
-    flag = False
-    for user in users:
-        if user ["id"] == id_delete:
-            flag = True
-            print( "El usuario a eliminar es: ")
-            for key, value in tuple (user.items()):
-                print(key, value) 
-            users.remove(user)
-            return users
-                              
-    if flag == False:
-        print( "Id no encontrado. Intente nuevamente") 
-        return False
-    
-    
+    try:
+        flag = False
+        for user in users:
+            if user ["id"] == id_delete:
+                flag = True
+                print( "El usuario a eliminar es: ")
+                for key, value in tuple (user.items()):
+                    print(key, value) 
+                users.remove(user)
+                return users
+                                
+        if flag == False:
+            print( "Id no encontrado. Intente nuevamente") 
+            return False
+    except Exception as e:
+        print("Error al eliminar el usuario: ", e, ". Intente nuevamente")
+        
 #Listar usuarios
 def list_user(users): 
-    """
-    #Listo únicamente los Id
-    print("Los Id de los usuarios son: ")
-    for user in users:
-        print ("ID: ", user ["id"]) 
-    """
-    #Listo todos los usuarios
-    print("Los usuarios son: ")
-    for user in users:
-        print (user)
+    try:
+        print("Los usuarios son: ")
+        for user in users:
+            print(f"id: {user['id']}, first_name: {user['first_name']}, last_name: {user['last_name']}, telephone: {user['telephone']}, e_mail: {user['e_mail']}")
+    except Exception:
+        print("Error al listar los usuarios. Intente nuevamente")
         
         
 #Validación de caracteres para nombre, apellido y correo electrónico
@@ -1034,55 +1057,73 @@ def telephone_validation(telephone):
         return False 
     
     
-#Menu
+#Menú Principal
 exit = False 
 users = [] 
 id=0
 id, users = start(id, users)
 while exit == False:
 
-    option = int ( input( "\nMenú "+
-                          "\n   1 - Agregar nuevo/s usuario/s"+ 
-                          "\n   2 - Mostrar usuario por ID"+ 
-                          "\n   3 - Modificar usuario por ID"+ 
-                          "\n   4 - Eliminar usuario por ID"+ 
-                          "\n   5 - Listar todos los usuarios registrados"+ 
-                          "\n   6 - Salir"+
-                          "\n" ))
-    
+    try:
+       
+        option = int ( input( "\nMenú "+
+                            "\n   1 - Agregar nuevo/s usuario/s"+ 
+                            "\n   2 - Mostrar usuario por ID"+ 
+                            "\n   3 - Modificar usuario por ID"+ 
+                            "\n   4 - Eliminar usuario por ID"+ 
+                            "\n   5 - Listar todos los usuarios registrados"+ 
+                            "\n   6 - Salir"+
+                            "\n" ))
+    except ValueError:
+        print("Opción no válida. Debes introducir un número entero.")
+        
     # Controlo que el número ingresado este dentro del menú
     if option>6 or option<1:
         print("Opción incorrecta. Intente nuevamente")
 
     #Según la opción elegida
-    match(option):
+    match option:
 
         case 1:
-            registers = int( input( "Cuantos registros deseas agregar?: "))
-            
-            while registers > 0  : 
-                user = new_user()
-                if user == False:
-                    print( "El usuario no ha sido registrado")
-                else:
-                    first_name, last_name, telephone, e_mail = user
-                    id , users =add_user(id, first_name, last_name, telephone, e_mail, users)  
-                    registers -= 1 #Disminuyo los registros para que salga del bucle cuando cargue los usuarios
-
+            try:
+                registers = int( input( "Cuantos registros deseas agregar?: "))
+                while registers > 0  : 
+                    user = new_user()
+                    if user == False:
+                        print( "El usuario no ha sido registrado")
+                    else:
+                        first_name, last_name, telephone, e_mail = user
+                        id , users =add_user(id, first_name, last_name, telephone, e_mail, users)  
+                        registers -= 1 #Disminuyo los registros para que salga del bucle cuando cargue los usuarios
+            except ValueError:
+                print("Opción no válida. Debes introducir un número entero.")
+                
         case 2: 
-            search_id = int ( input ("Indique el ID del usuario que desea mostrar: "))
-            show_user (search_id, users)
-
+            try:
+                search_id = int ( input ("Indique el ID del usuario que desea mostrar: "))
+                show_user (search_id, users)
+            except ValueError:
+                print("Opción no válida. Los Id estan formados por números enteros.")
+                
         case 3: 
-            id_change = int ( input ("Indique el ID del usuario que desea modificar: "))
-            edit_user(id_change, users)
-        
+            try:
+                id_change = int ( input ("Indique el ID del usuario que desea modificar: "))
+                edit_user(id_change, users)
+            except ValueError:
+                print("Opción no válida. Los Id estan formados por números enteros.")
+                
         case 4: 
-            id_delete = int ( input ("Indique el ID del usuario que desea eliminar: "))
-            delete_user(id_delete, users)
-        
+            try:
+                id_delete = int ( input ("Indique el ID del usuario que desea eliminar: "))
+                delete_user(id_delete, users)
+            except ValueError:
+                print("Opción no válida. Los Id estan formados por números enteros.")
+                
         case 5:
-            list_user(users) 
+            try:
+                list_user(users) 
+            except Exception:
+                print ("Error al listar los usuarios.")
             
         case 6:
             exit = True
